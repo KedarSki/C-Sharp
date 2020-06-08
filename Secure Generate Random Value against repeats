@@ -1,0 +1,19 @@
+Random gen;
+int numbers, i;
+int[] vector; 
+gen = new Random();
+string text = Console.ReadLine();
+bool condition = false;
+
+for(int j = 0; j < vector.Length; j++)
+                {
+                    if (newRandomValue == vector[j])
+                    {
+                        condition = true;
+                        break;
+                    }
+                }
+                condition = false;
+                if (condition == false)
+                    vector[i] = newRandomValue;
+                else i--;
