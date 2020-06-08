@@ -1,4 +1,4 @@
- Console.WriteLine("Please provice looking value: ");
+ Console.WriteLine("Please provide looking value: ");
 
             text = Console.ReadLine();             
 
