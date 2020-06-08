@@ -1,0 +1,36 @@
+static void Main(string[] args)
+        {
+            string text;
+            Random gen;
+            int numbers, i;
+            int[] vector;
+            gen = new Random();
+            Console.WriteLine("Generating Random Values");
+            Console.WriteLine("Please provide number of items in array");
+            text = Console.ReadLine();
+
+            if (!int.TryParse(text, out numbers))
+            {
+                Console.WriteLine();
+                Console.ReadKey(true);
+            }
+
+            vector = new int[numbers];
+
+            for (i = 0; i < vector.Length; i++)
+            {
+                int newRandomValue = gen.Next(0, 100);
+
+                if (!vector.Contains(newRandomValue))
+                    vector[i] = newRandomValue;
+                else
+                    i--;
+            }
+
+            for (i = 0; i < vector.Length; i++)
+            {
+                Console.WriteLine($"{i}. {vector[i]} ");
+            }
+
+            Console.ReadKey();
+        }
