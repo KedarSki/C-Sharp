@@ -4,99 +4,76 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-/*
- Imię i Nazwisko: Radosław Zamojski Index: 99831 SAN grupa 2.
- 
-Program wykonuje instrukcje Random w języku C#. Program wypisuje do konsoli środowiska Visual Studio generowane losowo liczby od 0 do 100. Program posiada opcje podania przez użytkownika ilości elementów.
-Możemy podać dowolną liczbę elementów a na naszej tablicy zostanie wypisana dana ilość elementów w liczbach od 0 do 100. Liczby dodatkowo nie powtarzają się. 
-Cała wygenerowana tablica dodatkowo zostaje posortowana bombelkowo jako zadanie nr 7. Sortowanie jest konieczne do wykonania szukania binarnegp
- */
-
-
 namespace ConsoleApp10
 {
     class Program
     {
         static void Main(string[] arg)
-        {
+        {            
+            string text;
+            Random gen;
+            int numbers, i;
+            int[] vector;
+            gen = new Random();
+
+            Console.WriteLine("Random Numbers Array Generator");
+            Console.WriteLine("Please enter number of values will be generated");
+            text = Console.ReadLine();
+
+            if (!int.TryParse(text, out numbers))
             
-            string text; // Wykreowanie zmiennej text typu string
-
-            Random gen; // Wykreowanie zmiennej gen typu random
-
-            int numbers, i; // Wykreowanie zmiennych numbers, i, typu int o liczbie całkowitej
-
-            int[] vector; // wykreowanie zmiennej vector typu int[] (array)
-
-            gen = new Random(); // nadanie zmiennej gen funkcji Random(); która nadaje zmiennej losowe liczby.
-
-            Console.WriteLine("Nadawanie tablicy elementów losowych");
-            Console.WriteLine("Podaj liczbę elementów tablicy");
-
-            text = Console.ReadLine(); // Jest to komenda niezbędna aby w konsoli móc wpisać cokolwiek z racji tego, że posługujemy się klawiaturą, 
-
-            if (!int.TryParse(text, out numbers)) // warunek 'if' który ma na celu przekształcić typ zmiennej. Jest to Konwersja Typu Zmiennej. 
-            {
                 Console.WriteLine();
                 Console.ReadKey(true);
             }
 
-            vector = new int[numbers]; // Inicjalizowanie tablicy o nazwie 'vector' która mieści wszystkie liczby całkowite, które są przechowywane w zmiennej 'numbers'
-            
-
-
-            for (i = 0; i < vector.Length; i++) // pętla 'for'- jest to takie można powiedzieć wejście do tablicy od wartości 0;
+            vector = new int[numbers];
+ 
+            for (i = 0; i < vector.Length; i++)
             {
 
+                int newRandomValue = gen.Next(0, 100);
 
-                int newRandomValue = gen.Next(0, 100); // inicjalizowanie nowej zmiennej newRandomValue i nadanie jej przykazu, że generowane liczby będą 0-100;
-
-                if (!vector.Contains(newRandomValue)) // Warunek if w którym parametry wywołane są takie, które już wcześniej się nie wygenerowały;
-                    vector[i] = newRandomValue; // w momencie spełnienia warunku kolejna wartość dodaje się do tablicy. 
+                if (!vector.Contains(newRandomValue))
+                    vector[i] = newRandomValue;
                 else
-                    i--; // W przeciwnym razie warunek odejmuje  wartość się odejmuje. Cału warunek zabezpiecza, żeby liczby się nie powtarzały;
+                    i--;
             }
 
-            Console.WriteLine(); // Dodatkowa linia dla zachowania estetyki;
+            Console.WriteLine();
 
-            // Sortowanie bombelkowe 
+            int j;
 
-            int j; // Generowanie nowej zmiennej w celu jej późniejszego zamienienia.
-
-            for (i = 0; i < vector.Length; i++) // Wejście do tablicy poprzez pętle.
+            for (i = 0; i < vector.Length; i++)
             {
-                for (j = 0; j < vector.Length; j++) //pętla zagnieżdżona z nową zmienną.
+                for (j = 0; j < vector.Length; j++)
                 {
-                    if (vector[i] < vector[j]) //warunek gdzie jeden parametr musi być mniejszy od drugiego
+                    if (vector[i] < vector[j])
                     {
-                        int temp = vector[i]; // jeśli warunek spełniony to zmienna temp równa się ilości iteracji w tablicy. 
-                        vector[i] = vector[j]; // zamiana pozycji z i na j.
-                        vector[j] = temp; // zamiana iteracji 'j' na zmienną temp; 
-                    } // Na tym polega sortowanie bombelkowe, że zamienia się miejscami pozycje jeśli się sobie nie równają. Sprawdzana jest każda wartość dwukrotnie po kolei. 
+                        int temp = vector[i];
+                        vector[i] = vector[j];
+                        vector[j] = temp;
+                    }
                 }
             }
 
-            for (i = 0; i < vector.Length; i++) // Wejście do tablicy za pomocą pętli for
+            for (i = 0; i < vector.Length; i++)
             {
-                Console.WriteLine($"{i}. {vector[i]} "); // Wyświetlenie wartości
+                Console.WriteLine($"{i}. {vector[i]} ");
             }
 
             Console.ReadKey();
 
-          
-            //Szukanie binarne
-
-            Console.WriteLine("Podaj wartość szukaną: "); // Prośba o podanie szukanej wartości
+            Console.WriteLine("Please enter looking value: ");
 
             text = Console.ReadLine();             
 
-           int top = 0; // nowa zmienna top czyli lewej strony tablicy
+           int top = 0; 
 
-           int mid; // nowa zmienna mid czyli środek tablicy
+           int mid; 
 
-            int bottom = vector.Length - 1; // zmienna bottom czyli prawa strona tablicy odjąć 1
+           int bottom = vector.Length - 1;
 
-            int search; // zmienna szukana; 
+           int search;
             
             if(!int.TryParse(text, out search)) 
             {
@@ -104,44 +81,32 @@ namespace ConsoleApp10
                 Console.ReadKey();
             }
 
-
-            //Szukanie binarne
-
-                while (true) // pętla while wykonywana do momentu break;
+                while (true)
                 {
-                    if(top>bottom) // warunek jeśli lewa strona większa od prawej, to wtedy wartość nie istnieje. 
+                    if(top>bottom)
                 {
-                    Console.WriteLine("Podana wartość nie istnieje w wektorze");
+                    Console.WriteLine("Entered value do not exist");
 
                     break;
                 }
-
-                    
-                    mid = (bottom + top) / 2; // zmienna mid która wykonuj operacje dzielenia na dwa wartość po dodaniu prawej i lewej strony.
-                if (vector[mid] == search) // wartunej jeśli zmienna tablicy mid wyniesie wartość zmiennej szukanej  ===>>>
+               
+                    mid = (bottom + top) / 2; 
+                if (vector[mid] == search)
 
                 {
-                    Console.WriteLine($"Szukana wartość, znajduje się w indeksie nr. { mid}"); // ===>>>  to wyświetlamy szukany indeks wartości
+                    Console.WriteLine($"Looking value is located in following index: { mid}");
                     break;
                 }
 
-
-                if (vector[mid] > search) // kolejny warunek if w pętli  while. Jeśli w tablicy o wartości równej zmiennej mid jest większa wartość niż szukana
+                if (vector[mid] > search)
                     {
-                        bottom = mid - 1; // ==>> To prawa strona równa się strona równa się środek -1
+                        bottom = mid - 1;
                     }
                   else
                     {
-                        top = mid + 1; // w innym przypadku  lewa strona jest równa środek +1. 
+                        top = mid + 1;
                     }
-               
-                
-            }
-                
-
+            } 
         }
-
     }
-}
-
-            
+}       
